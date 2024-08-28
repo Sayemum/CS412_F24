@@ -1,0 +1,15 @@
+55 function calls in 13.271 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   13.271   13.271 {built-in method builtins.exec}
+        1    0.000    0.000   13.271   13.271 cs412_foxsays_dict.py:1(<module>)
+        1    0.000    0.000   13.271   13.271 cs412_foxsays_dict.py:13(main)
+        7   13.271    1.896   13.271    1.896 {built-in method builtins.input}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.print}
+        6    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+       18    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+       16    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
