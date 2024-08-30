@@ -11,7 +11,7 @@ from io import StringIO
 from unittest.mock import patch
 
 from cs412_foxsays_list import main as fox_list_main
-from cs412_foxsays_dict import main as fox_dict_main
+from HW.HW1.cs412_foxsays_dict_OLD import main as fox_dict_main
 
 class TestHW1(unittest.TestCase):
     
