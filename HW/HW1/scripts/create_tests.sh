@@ -5,15 +5,21 @@ source /opt/anaconda3/bin/activate && conda activate /opt/anaconda3/envs/cs412f2
 # Use split, wc, and head to create input file sizes
 INPUT_PATH="../foxsays_tleader_in.txt"
 OUTPUT_PATH="output"
-SIZES=(200 400 600 800)
 
 # Create the output directory if it doesn't exist
-mkdir -p $OUTPUT_PATH
+# mkdir -p $OUTPUT_PATH
 
-# Use `split` to create chunks of the specified sizes
-for size in "${SIZES[@]}"; do
-    split -b ${size}K $INPUT_PATH "${OUTPUT_PATH}/part_${size}K.txt"
-done
+# Get file size in bytes
+# TOTAL_SIZE=$(wc -c < $INPUT_PATH)
+# wc -c < $INPUT_PATH
 
-echo "Files created in $OUTPUT_PATH:"
-ls -lh $OUTPUT_PATH
+INPUT_200K=$(head -c 204800 $INPUT_PATH > chunk_200K.txt)
+INPUT_400K=$(head -c 409600 $INPUT_PATH > chunk_400K.txt)
+INPUT_600K=$(head -c 614400 $INPUT_PATH > chunk_600K.txt)
+INPUT_800K=$(head -c 819200 $INPUT_PATH > chunk_800K.txt)
+
+# Test file sizes with wc
+wc -c < chunk_200K.txt
+wc -c < chunk_400K.txt
+wc -c < chunk_600K.txt
+wc -c < chunk_800K.txt
