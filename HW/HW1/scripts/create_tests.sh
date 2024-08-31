@@ -13,6 +13,9 @@ OUTPUT_PATH="output"
 # TOTAL_SIZE=$(wc -c < $INPUT_PATH)
 # wc -c < $INPUT_PATH
 
+
+# NOTE: I wasn't sure what this was asking to do with split, wc, and head. 
+
 # INPUT_200K=$(head -c 204800 $INPUT_PATH > chunk_200K.txt)
 # INPUT_400K=$(head -c 409600 $INPUT_PATH > chunk_400K.txt)
 # INPUT_600K=$(head -c 614400 $INPUT_PATH > chunk_600K.txt)
@@ -21,11 +24,15 @@ OUTPUT_PATH="output"
 # head -c 409600 $INPUT_PATH > chunk_400K.txt
 # head -c 614400 $INPUT_PATH > chunk_600K.txt
 # head -c 819200 $INPUT_PATH > chunk_800K.txt
-split -b 200K $INPUT_PATH "${OUTPUT_PATH}/chunk_200K_"
+head -c 204800 $INPUT_PATH > chunk_200K.txt
+head -c 409600 $INPUT_PATH > chunk_400K.txt
+head -c 614400 $INPUT_PATH > chunk_600K.txt
+head -c 819200 $INPUT_PATH > chunk_800K.txt
+# split -b 200K $INPUT_PATH "${OUTPUT_PATH}/chunk_200K_"
 
 # Test file sizes with wc
-echo "Size of chunk_200K.txt:"
-wc -c < chunk_200K.txt
+# echo "Size of chunk_200K.txt:"
+# wc -c < chunk_200K.txt
 # echo "Size of chunk_400K.txt:"
 # wc -c < chunk_400K.txt
 # echo "Size of chunk_600K.txt:"
@@ -46,4 +53,4 @@ wc -c < chunk_200K.txt
 # PLOTS_DIR="plots"
 # mkdir -p $PLOTS_DIR
 
-# python "../line_plot.py"
+python "../line_plot.py"
