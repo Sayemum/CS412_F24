@@ -3,6 +3,7 @@
    coded by Bowers from Jeff Erickson's pseudocode
 """
 
+
 def mergesort(A, inversions):
     if len(A) > 1:
         # Get the mid point
@@ -22,7 +23,8 @@ def mergesort(A, inversions):
             A[j] = right[j - m]
         
         # Run the merge operation on A
-        merge(A,m,inversions)
+        merge(A, m, inversions)
+
 
 def merge(A, m, inversions):
     i, j = 0, m
@@ -45,14 +47,16 @@ def merge(A, m, inversions):
     for k in range(n):
         A[k] = B[k]
 
+
 def main():
     A = list(map(int, input().split()))
     inversions = [0]
     
     mergesort(A, inversions)
     
-    print("List:", A)
-    print("Number of Inversions:", inversions[0])
+    # print("List:", A)
+    # print("Number of Inversions:", inversions[0])
+    print(inversions[0])
 
 
 if __name__ == "__main__":

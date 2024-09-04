@@ -13,16 +13,16 @@ def circ_search(A, start_idx, end_idx, search_key):
         return mid_point
 
     # RECURSIVE
-    if A[mid_point + 1] <= A[end_idx]: # right side sorted
+    if A[mid_point + 1] <= A[end_idx]:  # right side sorted
         if A[mid_point + 1] <= search_key <= A[end_idx]:
-            return circ_search(A, mid_point+1, end_idx, search_key) # recurse right side
+            return circ_search(A, mid_point+1, end_idx, search_key)  # recurse right side
         else:
-            return circ_search(A, start_idx, mid_point-1, search_key) # recurse left side
-    else: # left side sorted
+            return circ_search(A, start_idx, mid_point-1, search_key)  # recurse left side
+    else:  # left side sorted
         if A[start_idx] <= search_key <= A[mid_point - 1]:
-            return circ_search(A, start_idx, mid_point-1, search_key) # recurse left side
+            return circ_search(A, start_idx, mid_point-1, search_key)  # recurse left side
         else:
-            return circ_search(A, mid_point+1, end_idx, search_key) # recurse right side
+            return circ_search(A, mid_point+1, end_idx, search_key)  # recurse right side
 
 
 def main():
@@ -35,11 +35,10 @@ def main():
     in_list = list(map(int, input().split()))
     search_item = int(input())
 
-    print("List:", in_list)
-    print("Search Item:", search_item)
+    # print("List:", in_list)
+    # print("Search Item:", search_item)
     
     print(circ_search(in_list, 0, len(in_list)-1, search_item))
-
 
 
 if __name__ == "__main__":
