@@ -35,8 +35,8 @@ def main():
     in_list = list(map(int, input().split()))
     search_item = int(input())
 
-    print(in_list)
-    print(search_item)
+    print("List:", in_list)
+    print("Search Item:", search_item)
     
     print(circ_search(in_list, 0, len(in_list)-1, search_item))
 
