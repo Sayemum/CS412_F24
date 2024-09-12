@@ -18,18 +18,16 @@ def recurse(s):
 
 def main():
 
-    # n = int(input())
-    # lines = list(input().split())
-    n = 3
-    lines = ["abc", "bcccb", "seeks"]
+    n = int(input())
 
-    # print(n)
-    # print(lines)
+    # get lines of input
+    lines = []
+    
+    for _ in range(n):
+        lines.append(input())
     
     for s in lines:
         print(recurse(s))
-    
-    # print(circ_search(in_list, 0, len(in_list)-1, search_item))
 
 
 if __name__ == "__main__":
