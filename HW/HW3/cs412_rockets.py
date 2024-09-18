@@ -14,52 +14,43 @@ NOTES:
 """
 
 
-def backtrack(section_lengths, remaining_height, count, section_counts):
+def backtrack(section_lengths, remaining_height, cache):
     if remaining_height == 0:
-        return count, section_counts.copy()
+        return 0
     if remaining_height < 0:
-        return float('inf'), section_counts
+        return float('inf')
+    
+    if remaining_height in cache:
+        return cache[remaining_height]
     
     min_count = float('inf')
-    min_section_counts = {}
     for section in section_lengths:
-        section_counts[section] += 1
-        result, current_counts = backtrack(section_lengths, remaining_height - section, count + 1, section_counts)
-        
-        # min_count = min(min_count, result)
-        section_counts[section] -= 1
-        
-        #if section not in length_to_count:
-        # length_to_count[section] = min_count
-        if result < min_count:
-            min_count = result
-            min_section_counts = current_counts
+        result = backtrack(section_lengths, remaining_height - section, cache)
+        if result != float('inf'):
+            min_count = min(min_count, result + 1)
     
-    return min_count, min_section_counts
+    cache[remaining_height] = min_count
+    return min_count
 
 
 def find_min_sections(section_lengths, height):
-    section_counts = {length: 0 for length in section_lengths}
-    
-    result, length_to_count = backtrack(section_lengths, height, 0, section_counts)
-    
+    cache = {}
+    result = backtrack(section_lengths, height, cache)
+        
     if result != float('inf'):
-        return result, length_to_count
+        return result
     else:
-        return -1, {}
+        return -1
 
 
 def main():
     # get input
-    # section_lengths = [1, 2, 5, 7]
-    # height = 15
+    # n = 3
+    # remove_coords = (0, 0)
     section_lengths = list(map(int, input().split()))
     height = int(input())
     
-    minimum, length_to_count = find_min_sections(section_lengths, height)
-    
-    for length in sorted(length_to_count.keys()):
-        print(length_to_count[length], "of length", length)
+    minimum = find_min_sections(section_lengths, height)
     
     print(minimum, "rocket sections minimum")
 
