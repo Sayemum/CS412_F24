@@ -26,6 +26,9 @@ def main():
     for _ in range(n):
         lines.append(input())
     
+    # n = 3
+    # lines = ["abc", "bcccb", "seeks"]
+    
     for s in lines:
         print(recurse(s))
 

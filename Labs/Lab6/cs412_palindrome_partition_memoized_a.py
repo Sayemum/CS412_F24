@@ -4,6 +4,7 @@ def is_palindrome(s):
 
 def palincount(s):
     cache = {}
+    
     def inner_function(s):
         if s in cache:
             return cache[s]
