@@ -6,6 +6,9 @@ def palincount(s):
     cache = [None] * (len(s) + 1) 
     cache[len(s)] = 1
     
+    pass
+    
+    """
     def inner_function(i):
         if cache[i] is not None:
             return cache[i]
@@ -19,17 +22,21 @@ def palincount(s):
         return total
 
     return inner_function(0)
+    """
 
 
 def main():
 
-    n = int(input())
+    # n = int(input())
 
     # get lines of input
-    lines = []
+    # lines = []
     
-    for _ in range(n):
-        lines.append(input())
+    n = 1
+    lines = ["money"]
+    
+    #for _ in range(n):
+        #lines.append(input())
     
     for s in lines:
         print(palincount(s))
