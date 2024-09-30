@@ -1,42 +1,43 @@
+"""
+ANALYSIS:
+O(1) - lines 16,17
+O(n) - lines 19,21,22
+The outer i loop is O(n) while the inner j loop has each i+1 going to n.
+A palindrome check is called O(n^2) in worst case and each item takes O(n).
+So the runtime is O(n^3).
+"""
+
+
 def is_palindrome(s):
     return s == s[::-1]
 
 
 def palincount(s):
-    cache = [None] * (len(s) + 1) 
+    cache = [0] * (len(s) + 1) 
     cache[len(s)] = 1
     
-    pass
-    
-    """
-    def inner_function(i):
-        if cache[i] is not None:
-            return cache[i]
-
+    for i in range(len(s)-1, -1 ,-1):
         total = 0
-        for j in range(i, len(s)):
-            if is_palindrome(s[i:j+1]):
-                total += inner_function(j-1)
-
+        for j in range(i + 1, len(s) + 1):
+            if is_palindrome(s[i:j]):
+                total += cache[j]
         cache[i] = total
-        return total
-
-    return inner_function(0)
-    """
+    
+    return cache[0]
 
 
 def main():
 
-    # n = int(input())
+    n = int(input())
 
     # get lines of input
-    # lines = []
+    lines = []
     
-    n = 1
-    lines = ["money"]
+    # n = 1
+    # lines = ["abc"]
     
-    #for _ in range(n):
-        #lines.append(input())
+    for _ in range(n):
+        lines.append(input())
     
     for s in lines:
         print(palincount(s))
