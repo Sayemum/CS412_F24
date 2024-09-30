@@ -31,7 +31,8 @@ def find_min_sections(section_lengths, height):
     current_height = height
     while current_height > 0:
         for section in section_lengths:
-            if (current_height - section >= 0) and (cache[current_height] == cache[current_height - section] + 1):
+            if (current_height - section >= 0 and
+                    cache[current_height] == cache[current_height - section] + 1):
                 current_height -= section
                 break
     
