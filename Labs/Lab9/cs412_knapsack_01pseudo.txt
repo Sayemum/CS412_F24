@@ -1,0 +1,8 @@
+knapsack(i, weight_capacity, weights, profits):
+    if i == 0 or W == 0:
+        return 0
+    
+    if weight at ith pos > weight_capacity:
+        return knapsack(ith item not included)
+    
+    return max(ith item included, ith item not included)
