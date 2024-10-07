@@ -1,3 +1,5 @@
+Name: Sayemum Hassan
+
 knapsack(i, weight_capacity, weights, profits):
     if i == 0 or W == 0:
         return 0
@@ -6,3 +8,30 @@ knapsack(i, weight_capacity, weights, profits):
         return knapsack(ith item not included)
     
     return max(ith item included, ith item not included)
+
+
+
+
+
+1.) Fractional knapsack is more efficient than 0/1. The runtime for fractional knapsack is O(nlogn) while 0/1 knapsack is O(2^n).
+
+2.) The profit/weight ratio is calculated for each item. We then sort them in descending order based on the ratios. Next we add items to knapsack until adding the next item would exceed the weight limit.
+    The optimal solution isn't always given since it's possible to have a combination of items that don't have the highest individual ratios.
+    The fractional knapsack approach is speed efficient since it doesn't explore all possible subsets of items.
+    The 0/1 knapsack approach finds the optimal solution, but it's slower and less efficient.
+    
+3.) 
+Input:
+50
+3
+ring 60 10
+gold 100 20
+silver 120 30
+
+Greedy output:
+silver(120.00, 30.00) ring(60.00, 10.00) 
+180.0
+
+Optimal solution:
+ring(60.00, 10.00) gold(100.00, 20.00) silver(80.00, 20.00) 
+240.0

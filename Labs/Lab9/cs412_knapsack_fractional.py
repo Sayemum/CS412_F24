@@ -9,16 +9,8 @@
 """
 
 
-def frac_knapsack(i, w):
-    pass
-
-
 def main():
     # get input
-    # n = 3
-    # remove_coords = (0, 0)
-    # section_lengths = list(map(int, input().split()))
-    # height = int(input())
     
     w = int(input())
     n = int(input())
@@ -26,30 +18,26 @@ def main():
     triples = []
     for _ in range(n):
         line = input().split()
-        # triples.append((line[0], float(line[1]), float(line[2])))
         triples.append([line[0], float(line[1]), float(line[2])])
-
-    # print(triples)
     
     triples.sort(key=lambda x: (x[1] / x[2]), reverse=True)
     
-    # print(triples)
-    
     total = 0.0
+    taken_items = []
     
     for item in triples:
         if item[2] <= w:
             w -= item[2]
             total += item[1]
+            taken_items.append((item[0], item[1], item[2]))
         else:
-            total += item[1] * w / item[2]
+            frac_profit = item[1] * (w / item[2])
+            total += frac_profit
+            taken_items.append((item[0], frac_profit, w))
             break
     
-    # print(triples)
-    for item in triples:
-        print(f"{item[0]}({item[1]:.2f}, {item[2]:.2f})", end=" ")
-    
-    print()
+    outputs = [f"{item[0]}({item[1]:.2f}, {item[2]:.2f})" for item in taken_items]
+    print(" ".join(outputs))
     print(total)
 
 if __name__ == "__main__":
