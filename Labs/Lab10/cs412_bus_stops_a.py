@@ -11,59 +11,57 @@
 
 def search(stack, stops_connected, startV, endV):
     stack.append(startV)
-    stops = list(stops_connected.keys())
+    visited = set()
     correct_path = []
-    # print(type(stops))
-    # print(stops)
     
     while stack:
         v = stack.pop()
-        correct_path = [v]
         
-        if v in stops:
-            stops.remove(v)
+        if v not in visited:
+            visited.add(v)
+            correct_path.append(v)
             
             for w in stops_connected[v]:
-                stack.append(w)
-                correct_path.append(w)
+                if w not in visited:
+                    stack.append(w)
+        
+        if v == endV:
+            return correct_path
 
-    return correct_path
+    return -1
 
-# USE AN AJASCENCY LIST
+
 def main():
     # get input
     
-    # n = int(input())
+    n = int(input())
     
     # Key is each stop as string and value is a list of all connected stops
-    # stops_connected = {}
-    # for _ in range(n):
-    #     line = input().split()
-    #     stop1, stop2 = line[0], line[1]
+    stops_connected = {}
+    for _ in range(n):
+        line = input().split()
+        stop1, stop2 = line[0], line[1]
         
-    #     if stops_connected.get(stop1) == None:
-    #         stops_connected[stop1] = []
-    #         stops_connected[stop1].append(stop2)
-    #     else:
-    #         stops_connected[stop1].append(stop2)
+        if stops_connected.get(stop1) == None:
+            stops_connected[stop1] = []
+            stops_connected[stop1].append(stop2)
+        else:
+            stops_connected[stop1].append(stop2)
         
-    #     if stops_connected.get(stop2) == None:
-    #         stops_connected[stop2] = []
-    #         stops_connected[stop2].append(stop1)
-    #     else:
-    #         stops_connected[stop2].append(stop1)
+        if stops_connected.get(stop2) == None:
+            stops_connected[stop2] = []
+            stops_connected[stop2].append(stop1)
+        else:
+            stops_connected[stop2].append(stop1)
     
-    stops_connected = {'Hburg': ['JMU'], 'JMU': ['Hburg', 'Charlottesville'], 'Charlottesville': ['JMU']}
-    
-    # query = input().split()
-    query = ['Hburg', 'Charlottesville']
+    query = input().split()
     stack = []
     correct_path = search(stack, stops_connected, query[0], query[1])
     
-    # print(stack)
-    print(" ".join(correct_path))
-    print()
-    print(stops_connected)
+    if correct_path == -1:
+        print("no route possible")
+    else:
+        print(" ".join(correct_path))
     
 
 if __name__ == "__main__":
