@@ -27,9 +27,11 @@ def iterative(region, visited, x, y):
             new_x = curr_x + dir_x
             new_y = curr_y + dir_y
             
-            if (0 <= new_x < len(region)) and (0 <= new_y < len(region[0])) \
-                and not visited[new_x][new_y] and region[new_x][new_y] == 1:
-                    stack.append((new_x, new_y))
+            if (0 <= new_x < len(region) and
+                    0 <= new_y < len(region[0]) and
+                    not visited[new_x][new_y] and
+                    region[new_x][new_y] == 1):
+                stack.append((new_x, new_y))
     
     return count
 
@@ -49,7 +51,6 @@ def main():
     # Init visited array
     visited = [[False] * n for _ in range(n)]
     largest_island = 0
-    
     
     # Iterate each cell
     for i in range(n):
