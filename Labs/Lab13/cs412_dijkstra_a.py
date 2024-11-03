@@ -21,16 +21,16 @@ def InitSSSP(verticesNum):
     return graph
 
 
-def Dijkstras(verticesNum, edges):
+def Dijkstras(verticesNum, edges, source):
     graph = InitSSSP(verticesNum)
     pq = PriorityQueue()
-    
-    for i in range(verticesNum):
-        dist = graph[i][1]
-        pq.put((dist, i))
+    pq.put((0, source))
     
     while not pq.empty():
         u = pq.get()
+        
+        if u[0] > graph[u[1]][1]:
+            continue
         
         for edge in edges:
             if u[1] == edge[0]:
@@ -76,11 +76,10 @@ def main():
         queryStr = input().split()
         queries.append((int(queryStr[0]), int(queryStr[1])))
     
-    graph = Dijkstras(verticesNum, edges)
-    
     # Output
-    for i in range(queriesNum):
-        print(Report_Query(graph, queries[i]))
+    for query in queries:
+        graph = Dijkstras(verticesNum, edges, query[0])
+        print(Report_Query(graph, query))
 
 
 if __name__ == "__main__":
