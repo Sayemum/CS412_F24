@@ -19,48 +19,68 @@ def InitSSSP(verticesNum):
     graph[0][1] = 0
     
     return graph
-    
+
 
 def Dijkstras(verticesNum, edges):
     graph = InitSSSP(verticesNum)
+    pq = PriorityQueue()
     
+    for i in range(verticesNum):
+        dist = graph[i][1]
+        pq.put((dist, i))
+    
+    while not pq.empty():
+        u = pq.get()
+        
+        for edge in edges:
+            if u[1] == edge[0]:
+                # if tense edge
+                if u[0] + edge[2] < graph[edge[1]][1]:
+                    # relax edge
+                    graph[edge[1]][1] = u[0] + edge[2]
+                    graph[edge[1]][2] = u[1]
+                    pq.put((graph[edge[1]][1], edge[1]))
+    
+    return graph
+
+
+def Report_Query(graph, query):
+    result = graph[query[1]][1]
+    return result if result != float('inf') else "Impossible"
 
 
 def main():
     # example input
-    verticesNum = 4
-    edgesNum = 3
-    queriesNum = 4
-    edges = [(0, 1, 2), (1, 2, 2), (3, 0, 2)]
-    queries = [(0, 0), (0, 1), (0, 2), (0, 3)]
+    # verticesNum = 4
+    # edgesNum = 3
+    # queriesNum = 4
+    # edges = [(0, 1, 2), (1, 2, 2), (3, 0, 2)]
+    # queries = [(0, 0), (0, 1), (0, 2), (0, 3)]
     
     
     # get input
     
-    # given = input().split()
-    # edges = []
-    # queries = []
+    given = input().split()
+    edges = []
+    queries = []
     
-    # verticesNum = int(given[0])
-    # edgesNum = int(given[1])
-    # queriesNum = int(given[2])
+    verticesNum = int(given[0])
+    edgesNum = int(given[1])
+    queriesNum = int(given[2])
     
-    # for _ in range(edgesNum):
-    #     edgeStr = input().split()
-    #     edges.append((int(edgeStr[0]), int(edgeStr[1]), int(edgeStr[2])))
+    for _ in range(edgesNum):
+        edgeStr = input().split()
+        edges.append((int(edgeStr[0]), int(edgeStr[1]), int(edgeStr[2])))
     
-    # for _ in range(queriesNum):
-    #     queryStr = input().split()
-    #     queries.append((int(queryStr[0]), int(queryStr[1])))
+    for _ in range(queriesNum):
+        queryStr = input().split()
+        queries.append((int(queryStr[0]), int(queryStr[1])))
     
-    # test print input
-    # print(verticesNum, edgesNum, queriesNum)
-    # print(edges)
-    # print(queries)
+    graph = Dijkstras(verticesNum, edges)
     
-    
-    # InitSSSP(verticesNum, edges)
-    Dijkstras(verticesNum)
+    # Output
+    for i in range(queriesNum):
+        print(Report_Query(graph, queries[i]))
 
 
 if __name__ == "__main__":
