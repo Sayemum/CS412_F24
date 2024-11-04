@@ -9,6 +9,7 @@ max flow of a graph.
 
 
 import queue
+import sys
 
 
 """
@@ -37,6 +38,51 @@ def dfs(G, s, t):
     return dfs_parents            
 
 
+def build_res(G):
+    residual = {}
+    for u in G:
+        residual[u] = {}
+    
+    for u in G:
+        for v in G[u]:
+            flow, cap = G[u][v]
+            if cap != flow:
+                residual[u][v] = cap - flow
+            if flow != 0:
+                residual[v][u] = flow
+    
+    return residual
+
+
+def extract_path(spanning_tree, t):
+    path = [t]
+    current_node = t
+    
+    while spanning_tree[current_node] is not None:
+        path.append(spanning_tree[current_node])
+        current_node = spanning_tree[current_node]
+    
+    path.reverse()
+    return path
+
+
+def maxflow(G, s, t):
+    while True:
+        G_res = build_res(G)
+        spanning_tree = dfs(G_res, s, t)
+        
+        if t not in spanning_tree:
+            break
+        
+        path = extract_path(spanning_tree, t)
+        
+        print(G_res)
+        print(spanning_tree)
+        print(path)
+        sys.exit(0)
+        
+        adj_flows(G, path)
+
 
 def main():
     vertex_count, edge_count = [int(x) for x in input().split()]
@@ -58,6 +104,8 @@ def main():
     # by the problem definition, define s and t as follows
     s = 0    
     t = vertex_count - 1
+    
+    maxflow(adj_list, s, t)
     
 
 if __name__ == "__main__":
