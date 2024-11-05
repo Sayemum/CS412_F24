@@ -11,61 +11,81 @@
 import math
 
 
-def create_graph(exchanges):
-    graph = []
-    
-    for exchange in exchanges:
-        graph.append([exchange[0], exchange[1], -math.log(exchange[2])])
-    
-    return graph
-
-def InitSSSP(given):
+def InitSSSP(given, source):
     graph = {}
     
     for u in given:
-        graph[u] = {float('inf') : None}
-    graph[0] = 0
-    
-    # for i in range(verticesNum):
-    #     graph.append([i, float('inf'), None])
-    # graph[0][1] = 0
+        graph[u] = [float('inf'), None]
+    graph[source] = [0, None]
     
     return graph
 
-def Bellman_Ford(num_rates, exchanges):
-    graph = InitSSSP(num_rates)
-    
-    # relax edges v - 1 times
-    # for _ in range(num_rates - 1):
-    #     for exchange in exchanges:
-    #         print(exchange)
-    
-    return graph
 
-def detect_arbitrage(num_rates, exchanges):
-    graph = Bellman_Ford(num_rates, exchanges)
-    # detect if product of all exchanges is greater than 1
-    return False
+def Bellman_Ford(graph, source):
+    table = InitSSSP(graph, source)
+    
+    for _ in range(len(graph)-1):
+        for u in graph:
+            for v in graph[u]:
+                if (table[u][0] + math.log(graph[u][v], 10) < table[v][0]):
+                    table[v][0] = table[u][0] + math.log(graph[u][v], 10)
+                    table[v][1] = u
+    
+    return table
+
+
+def detect_arbitrage(exchanges, source):
+    table = Bellman_Ford(exchanges, source)
+    
+    for u in exchanges:
+        for v in exchanges[u]:
+            if v != source:
+                continue
+            
+            if table[u][0] + math.log(exchanges[u][v], 10) > 0:
+                # create path
+                path = [source]
+                parent = u
+                
+                while parent is not None:
+                    path.append(parent)
+                    parent = table[parent][1]
+                path.reverse()
+                
+                # check if cycle made net gain
+                negative_cycle_total = 0
+                for i in range(len(path)-1):
+                    negative_cycle_total += -math.log(exchanges[path[i]][path[i+1]], 10)
+                
+                if negative_cycle_total < 0:
+                    factor_increase = 10 ** (-negative_cycle_total)
+                    return True, path, factor_increase
+    
+    return False, [], 0
+
 
 def main():
-    # example input
-    num_rates = 4
-    exchanges = {'USD': {'EUR': 0.82}, 'EUR': {'JPY': 129.7}, 'JPY': {'TRY': 12.0}, 'TRY': {'USD': 0.0008}}
-    
     # get input
-    # num_rates = int(input())
-    # exchanges = {}
+    num_rates = int(input())
+    exchanges = {}
     
-    # for _ in range(num_rates):
-    #     exchange = input().split()
-    #     exchanges[exchange[0]] = {exchange[1] : float(exchange[2])}
+    for _ in range(num_rates):
+        exchange = input().split()
+        exchanges[exchange[0]] = {exchange[1]: float(exchange[2])}
     
-    print(exchanges)
-    # graph = create_graph(exchanges)
-    # print(graph)
-    # bellman = Bellman_Ford(num_rates, exchanges)
-    detected = detect_arbitrage(num_rates, exchanges)
-    print(detected)
+    detected, path, factor_increase = detect_arbitrage(exchanges, list(exchanges.keys())[0])
+    
+    if detected:
+        print("Arbitrage Detected")
+        
+        for i in range(len(path)-1):
+            print(f"{path[i]} => ", end="")
+        print(path[-1])
+        
+        print(f"{factor_increase:.5f} factor increase")
+    else:
+        print("No Arbitrage Detected")
+
 
 if __name__ == "__main__":
     main()
