@@ -85,21 +85,27 @@ def maxflow(G, s, t):
 
 
 def main():
-    vertex_count, edge_count = [int(x) for x in input().split()]
+    # example
+    vertex_count = 6
+    edge_count = 9
+    adj_list = {0: {1: [0, 20], 2: [0, 10]}, 1: {2: [0, 10], 3: [0, 5]}, 2: {4: [0, 10]}, 3: {2: [0, 15], 5: [0, 15]}, 4: {3: [0, 10], 5: [0, 20]}, 5: {}}
 
-    adj_list = {}
-    # create vertices numbered 0 to vertex_count - 1
-    for i in range(vertex_count):
-        adj_list[i] = {}
+    # vertex_count, edge_count = [int(x) for x in input().split()]
 
-    # the value for each edge is a list.  First element is the flow, 
-    # second element is the capacity.
+    # adj_list = {}
+    # # create vertices numbered 0 to vertex_count - 1
+    # for i in range(vertex_count):
+    #     adj_list[i] = {}
 
-    for _ in range(edge_count):
-        u, v, cap = [int(x) for x in input().split()]
-        adj_list[u][v]= [0, cap]
+    # # the value for each edge is a list.  First element is the flow, 
+    # # second element is the capacity.
 
-    #print('adjlist', adj_list)
+    # for _ in range(edge_count):
+    #     u, v, cap = [int(x) for x in input().split()]
+    #     adj_list[u][v]= [0, cap]
+
+    # print('adjlist', adj_list)
+    # sys.exit(0)
 
     # by the problem definition, define s and t as follows
     s = 0    
