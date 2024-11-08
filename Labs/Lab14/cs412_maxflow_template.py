@@ -68,8 +68,8 @@ def extract_path(spanning_tree, t):
 
 def maxflow(G, s, t):
     while True:
-        G_res = build_res(G)
-        spanning_tree = dfs(G_res, s, t)
+        G_res = build_res(G) 
+        spanning_tree = dfs(G_res, s, t) # p = findAugmentingPath()
         
         if t not in spanning_tree:
             break
